@@ -13,33 +13,25 @@ const Dashboard = () => {
         const existingTransaction = transactions.find((t) => t.id === transaction.id);
 
         if (existingTransaction) {
-
-            console.log('Removing existing transaction:', existingTransaction);
-
-
+            // Remove the existing transaction
             api.deleteTransaction(existingTransaction.id);
-
-
-            console.log('Existing transaction removed:', existingTransaction);
-
             setTransactions((prevTransactions) =>
                 prevTransactions.filter((t) => t.id !== existingTransaction.id)
             );
         }
 
-
-        console.log('Adding new transaction:', transaction);
-
-
+        // Add the new transaction
         api.addTransaction(transaction);
 
-
-        console.log('New transaction added:', transaction);
-
+        // Update the state with the new transactions
         setTransactions((prevTransactions) => [...prevTransactions, transaction]);
 
         setSelectedTransaction(null);
+
+        // Log the current state to check for duplicates
+        console.log('Current Transactions State:', transactions);
     };
+
 
 
     const handleDeleteTransaction = (transactionId) => {
